@@ -9,14 +9,27 @@ export default defineComponent({
     const { userLocation, isUserLocationReady } = usePlacesStore()
 
     const initMap = () => {
-      Promise.resolve()
+      if (!userLocation.value) throw new Error('location is needed')
 
       const map = new mapboxgl.Map({
         container: mapElement.value!, // container ID
-        style: 'mapbox://styles/mapbox/streets-v12', // style URL
+        style: 'mapbox://styles/mapbox/light-v10', // style URL
         center: userLocation.value, // starting position [lng, lat]
         zoom: 15 // starting zoom
       })
+
+      const myLocationPopUp = new mapboxgl.Popup({
+        offset: [0, -45]
+      }).setLngLat(userLocation.value).setHTML(`
+          <h4>Here I am</h4>
+          <p>Currently in Lima</p>
+          <p>${userLocation.value}</p>
+        `)
+
+      const myLocationMarker = new mapboxgl.Marker()
+        .setLngLat(userLocation.value)
+        .setPopup(myLocationPopUp)
+        .addTo(map)
     }
 
     onMounted(() => {
