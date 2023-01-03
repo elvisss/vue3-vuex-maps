@@ -1,9 +1,10 @@
+import type mapboxgl from 'mapbox-gl'
 import type { MutationTree } from 'vuex'
 import type { MapState } from './state'
 
 const mutation: MutationTree<MapState> = {
-  someMutation(/* state: ExampleStateInterface */) {
-    // a line to prevent linter errors
+  setMap(state, map: mapboxgl.Map) {
+    state.map = map
   }
 }
 

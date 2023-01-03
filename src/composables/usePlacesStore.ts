@@ -1,4 +1,5 @@
 import type { StateInterface } from "@/store"
+import type mapboxgl from 'mapbox-gl'
 import { computed, onMounted } from 'vue'
 import { useStore } from 'vuex'
 
@@ -15,6 +16,6 @@ export const usePlacesStore = () => {
     isLoading: computed(() => store.state.places.isLoading),
     userLocation: computed(() => store.state.places.userLocation),
 
-    isUserLocationReady: computed<boolean>(() => store.getters['places/isUserLocationReady'])
+    isUserLocationReady: computed<boolean>(() => store.getters['places/isUserLocationReady']),
   }
 }
