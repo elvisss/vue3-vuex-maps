@@ -7,7 +7,7 @@
   </div>
 
   <template v-if="!isLoadingPlaces && places.length">
-    <ul class="list-group mt-3">
+    <ul class="list-group mt-1">
       <li
         v-for="place in places"
         :key="place.id"
@@ -39,6 +39,7 @@ li {
 }
 
 p {
-  font-size: 0.75rem;
+  font-size: 0.65rem;
+  margin-bottom: 10px;
 }
 </style>

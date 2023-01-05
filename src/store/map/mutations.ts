@@ -31,6 +31,15 @@ const mutation: MutationTree<MapState> = {
 
       state.markers.push(marker)
     }
+
+    // crear polyline
+
+    if (state.map?.getLayer('RouteString')) {
+      state.map.removeLayer('RouteString')
+      state.map.removeSource('RouteString')
+      state.distance = undefined
+      state.duration = undefined
+    }
   },
 
   setRoutePolyline(state, coords: number[][]) {
@@ -50,7 +59,7 @@ const mutation: MutationTree<MapState> = {
     }
 
     state.map?.fitBounds(bounds, {
-      padding: 300
+      padding: 100
     })
 
     // polyline
@@ -91,6 +100,14 @@ const mutation: MutationTree<MapState> = {
         'line-width': 3
       }
     })
+  },
+
+  setDistanceDuration(state, { distance, duration }: { distance: number, duration: number }) {
+    let kms = distance / 1000
+    kms = Math.round(kms * 100) / 100
+
+    state.distance = kms
+    state.duration = Math.floor( duration / 60 )
   }
 }
 
