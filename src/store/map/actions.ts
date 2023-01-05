@@ -9,7 +9,7 @@ export type LngLat = [ number, number ]
 const actions: ActionTree<MapState, StateInterface> = {
   async getRouteBetweenPoints({ commit }, { start, end }: { start: LngLat, end: LngLat}) {
     const { data } = await directionApi.get<DirectionsResponse>(`${start.join(',')};${end.join(',')}`)
-    console.log(data.routes[0].geometry.coordinates)
+    commit('setRoutePolyline', data.routes[0].geometry.coordinates)
   }
 }
 

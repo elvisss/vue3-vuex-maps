@@ -3,7 +3,6 @@ import type { PlacesState } from './state'
 import type { StateInterface } from '../index'
 import type { Feature, PlacesResponse } from '@/interfaces/places'
 import { searchApi } from '@/apis'
-import { promise } from '@/utils/promise'
 
 const actions: ActionTree<PlacesState, StateInterface> = {
   getInitialLocation({ commit }) {
@@ -28,8 +27,6 @@ const actions: ActionTree<PlacesState, StateInterface> = {
     }
 
     commit('setLoadingPlaces', true)
-
-    await promise(2000)
 
     const { data } = await searchApi.get<PlacesResponse>(`/${query}.json`, {
       params: {

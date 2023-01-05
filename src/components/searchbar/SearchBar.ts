@@ -22,7 +22,7 @@ export default defineComponent({
           debounceTimeut.value = setTimeout(() => {
             debounceValue.value = val
             searchPlacesByTerm(val)
-          }, 1500)
+          }, 1000)
         }
       })
     }

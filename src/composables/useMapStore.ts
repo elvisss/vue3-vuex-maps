@@ -23,6 +23,8 @@ export const useMapStore = () => {
 
     // actions
     getRouteBetweenPoints: (start: LngLat, end: LngLat) =>
-      store.dispatch('map/getRouteBetweenPoints', { start, end })
+      store.dispatch('map/getRouteBetweenPoints', { start, end }),
+
+    setRoutePolyline: (coords: number[][]) => store.commit('map/setRoutePolyline', coords)
   }
 }

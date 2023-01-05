@@ -7,7 +7,7 @@ export default defineComponent({
   name: 'SearchResults',
   setup() {
     const { isLoadingPlaces, places, userLocation } = usePlacesStore()
-    const { map, setPlaceMarkers, getRouteBetweenPoints } = useMapStore()
+    const { map, setPlaceMarkers, getRouteBetweenPoints, setRoutePolyline } = useMapStore()
     const activePlace = ref<string>('')
 
     watch(places, (newPlaces) => {
@@ -22,7 +22,6 @@ export default defineComponent({
       onGetDirections: async(end: LngLat) => {
         if (!userLocation.value) return
         await getRouteBetweenPoints(userLocation.value, end)
-        console.log('end')
       },
       onPlaceClick: (place: Feature) => {
         activePlace.value = place.id

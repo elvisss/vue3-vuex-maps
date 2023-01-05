@@ -1,5 +1,5 @@
 import type { Feature } from '@/interfaces/places'
-import mapboxgl from 'mapbox-gl'
+import mapboxgl, { type LngLatLike } from 'mapbox-gl'
 import type { MutationTree } from 'vuex'
 import type { MapState } from './state'
 
@@ -20,8 +20,8 @@ const mutation: MutationTree<MapState> = {
       const popup = new mapboxgl.Popup({
         offset: [0, -45]
       }).setLngLat([lng, lat]).setHTML(`
-          <h4>${ place.text }</h4>
-          <p>${ place.place_name }</p>
+          <h4>${place.text}</h4>
+          <p>${place.place_name}</p>
         `)
 
       const marker = new mapboxgl.Marker({ color: '#259b33' })
@@ -31,6 +31,66 @@ const mutation: MutationTree<MapState> = {
 
       state.markers.push(marker)
     }
+  },
+
+  setRoutePolyline(state, coords: number[][]) {
+    const start = coords[0]
+    const end = coords[coords.length - 1]
+
+    // bounds
+    const bounds = new mapboxgl.LngLatBounds(
+      [start[0], start[1]],
+      [start[0], start[1]]
+    )
+
+    // add points to bounds
+    for (const coord of coords) {
+      const newCoord: [number, number] = [coord[0], coord[1]]
+      bounds.extend(newCoord)
+    }
+
+    state.map?.fitBounds(bounds, {
+      padding: 300
+    })
+
+    // polyline
+    const sourceData: mapboxgl.AnySourceData = {
+      type: 'geojson',
+      data: {
+        type: 'FeatureCollection',
+        features: [
+          {
+            type: 'Feature',
+            properties: {},
+            geometry: {
+              type: 'LineString',
+              coordinates: coords
+            }
+          }
+        ]
+      }
+    }
+
+    if (state.map?.getLayer('RouteString')) {
+      state.map.removeLayer('RouteString')
+      state.map.removeSource('RouteString')
+    }
+
+    state.map?.addSource('RouteString', sourceData)
+
+    state.map?.addLayer({
+      id: 'RouteString',
+      type: 'line',
+      source: 'RouteString',
+      layout: {
+        'line-cap': 'round',
+        'line-join': 'round'
+      },
+      paint: {
+        'line-color': 'black',
+        'line-width': 3
+      }
+    })
   }
 }
 
