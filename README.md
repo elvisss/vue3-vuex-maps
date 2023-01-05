@@ -1,6 +1,14 @@
-# vue3-vuex-maps
+# VUE3 MAP PLACE FINDER
 
-This template should help get you started developing with Vue 3 in Vite.
+[V3MPF](https://vue3-mapbox-finder.netlify.app/): Vue3 app created from scratch through [Vite](https://vitejs.dev/) that consume MapBox APIs.
+
+## App Live Demo
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/2a078720-6c22-4de9-8eb7-d2a1413633d3/deploy-status)](https://app.netlify.com/sites/sparkly-dragon-017f92/deploys)
+
+👉 https://vue3-mapbox-finder.netlify.app/
+
+![V3MPF](assets/screenshot.png)
 
 ## Recommended IDE Setup
 
