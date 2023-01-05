@@ -1,6 +1,6 @@
 import type { MutationTree } from 'vuex'
 import type { PlacesState } from './state'
-import type { Feature } from './../../interfaces/places'
+import type { Feature } from '@/interfaces/places'
 
 const mutation: MutationTree<PlacesState> = {
   setLngLat(state: PlacesState, { lng, lat }: { lng: number; lat: number }) {
@@ -10,6 +10,10 @@ const mutation: MutationTree<PlacesState> = {
 
   setPlaces(state: PlacesState, places: Feature[]) {
     state.places = places
+  },
+
+  setLoadingPlaces(state: PlacesState, isLoading: boolean) {
+    state.isLoadingPlaces = isLoading
   }
 }
 
