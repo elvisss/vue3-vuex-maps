@@ -11,7 +11,7 @@ if (!navigator.geolocation) {
   throw new Error('your brower does not support geolocation')
 }
 
-mapboxgl.accessToken = 'pk.eyJ1IjoiZWx2aXNzcyIsImEiOiJjbDE1ODNkZDkyZHRjM2NxaDAzZGxuMmppIn0.PMjWBq1hgOE2hZDefcDejw';
+mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN
 
 const app = createApp(App)
 

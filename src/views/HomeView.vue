@@ -7,15 +7,16 @@
 
 <script lang="ts">
 import { usePlacesStore } from '@/composables';
-import { defineComponent } from 'vue'
-import MapView from '@/components/mapview/MapView.vue'
-import MyLocationBtn from '@/components/my-location-btn/MyLocationBtn.vue'
-import SearchBar from '@/components/searchbar/SearchBar.vue'
-import TripDetails from '@/components/trip-details/TripDetails.vue'
+import { defineComponent, defineAsyncComponent  } from 'vue'
 
 export default defineComponent({
   name: 'Home',
-  components: { MapView, MyLocationBtn, SearchBar, TripDetails },
+  components: {
+    MapView: defineAsyncComponent(() => import('@/components/mapview/MapView.vue')),
+    MyLocationBtn: defineAsyncComponent(() => import('@/components/my-location-btn/MyLocationBtn.vue')),
+    SearchBar: defineAsyncComponent(() => import('@/components/searchbar/SearchBar.vue')),
+    TripDetails: defineAsyncComponent(() => import('@/components/trip-details/TripDetails.vue')),
+  },
   setup() {
     usePlacesStore()
   }
