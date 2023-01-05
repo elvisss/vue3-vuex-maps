@@ -40,7 +40,6 @@ export default defineComponent({
         if (isUserLocationReady.value) {
           return initMap()
         }
-        console.log('No user location')
       })
     })
 
