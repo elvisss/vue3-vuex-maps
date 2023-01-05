@@ -15,7 +15,7 @@ export interface Feature {
   place_name_es: string;
   text:          string;
   place_name:    string;
-  center:        number[];
+  center:        [number, number];
   geometry:      Geometry;
   context:       Context[];
 }

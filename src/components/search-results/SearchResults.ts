@@ -1,12 +1,13 @@
 import { defineComponent, ref, watch } from "vue"
 import type { Feature } from '@/interfaces/places'
 import { usePlacesStore, useMapStore } from '@/composables'
+import type { LngLat } from '@/store/map/actions'
 
 export default defineComponent({
   name: 'SearchResults',
   setup() {
-    const { isLoadingPlaces, places } = usePlacesStore()
-    const { map, setPlaceMarkers } = useMapStore()
+    const { isLoadingPlaces, places, userLocation } = usePlacesStore()
+    const { map, setPlaceMarkers, getRouteBetweenPoints } = useMapStore()
     const activePlace = ref<string>('')
 
     watch(places, (newPlaces) => {
@@ -18,14 +19,16 @@ export default defineComponent({
       activePlace,
       places,
       isLoadingPlaces,
+      onGetDirections: async(end: LngLat) => {
+        if (!userLocation.value) return
+        await getRouteBetweenPoints(userLocation.value, end)
+        console.log('end')
+      },
       onPlaceClick: (place: Feature) => {
         activePlace.value = place.id
-
-        const [lng, lat] = place.center
-
         map.value?.flyTo({
           zoom: 14,
-          center: [lng, lat]
+          center: place.center
         })
       }
     }

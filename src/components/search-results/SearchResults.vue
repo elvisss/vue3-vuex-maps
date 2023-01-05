@@ -19,6 +19,7 @@
         <p>{{ place.place_name }}</p>
         <div class="text-end">
           <button
+            @click.self="onGetDirections(place.center)"
             class="btn btn-sm"
             :class="
               place.id === activePlace ? 'btn-outline-light' : 'btn-outline-primary'
